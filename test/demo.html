@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>test</title>
+</head>
+<body>
+
+    <button>copy haha</button>
+
+    <script src="http://s1.bdstatic.com/r/www/cache/ecom/esl/2-0-6/esl.js"></script>
+    <script src="http://apps.bdimg.com/libs/jquery/2.1.1/jquery.min.js"></script>
+
+
+    <script>
+
+        require.config({
+            baseUrl: './'
+        });
+
+        require(
+            [ 'TextClipboard' ],
+            function (TextClipboard) {
+                new TextClipboard({
+                    element: $('button'),
+                    text: 'haha',
+                    onClick: function () {
+                        console.log('click');
+                    },
+                    onReady: function () {
+                        console.log('ready');
+                    }
+
+                });
+            }
+        );
+
+    </script>
+</body>
+</html>
