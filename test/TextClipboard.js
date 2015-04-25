@@ -29,7 +29,7 @@ define(function (require, exports, module) {
         init: function () {
 
             var me = this;
-console.log(me)
+
             var movieName =
             me.movieName = '_TextClipboard_' + movieCount++;
 
@@ -113,7 +113,7 @@ console.log(me)
          *
          * @return {string}
          */
-        paste: function (url) {
+        paste: function () {
             var swf = this.swf;
             if (swf.paste) {
                 return swf.paste();

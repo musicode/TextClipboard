@@ -21,17 +21,23 @@
         require(
             [ 'TextClipboard' ],
             function (TextClipboard) {
-                new TextClipboard({
+
+                var instance = new TextClipboard({
                     element: $('button'),
                     text: 'haha',
                     onClick: function () {
                         console.log('click');
+                        instance.copy('哈哈哈1')
                     },
                     onReady: function () {
                         console.log('ready');
+                        console.log(instance.paste());
                     }
 
                 });
+
+                console.log(instance);
+
             }
         );
 
