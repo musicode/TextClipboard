@@ -35,10 +35,6 @@
 
             clipboard = Clipboard.generalClipboard;
 
-            if (params.text) {
-                copy(params.text);
-            }
-
             externalCall.ready();
             this.graphics.beginFill(0xFF0000, 1);
             this.graphics.drawRect(0, 0, stage.width, stage.height);
@@ -96,7 +92,13 @@
         }
 
         private function onClick(e: MouseEvent): void {
+
+            if (params.text) {
+                copy(params.text);
+            }
+
             externalCall.click();
+
         }
 
         public function copy(value: String): void {
