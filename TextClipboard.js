@@ -34,7 +34,6 @@ define(function (require, exports, module) {
             me.movieName = '_TextClipboard_' + movieCount++;
 
             window[movieName] =
-            document[movieName] =
             TextClipboard.instances[movieName] = me;
 
             var swf = $(me.getFlashHTML());
@@ -54,7 +53,7 @@ define(function (require, exports, module) {
             var flashUrl = me.flashUrl;
 
             return [
-                '<object id="', me.movieName, '" type="application/x-shockwave-flash" data="',
+                '<object id="', me.movieName, '" width="100%" height="100%" type="application/x-shockwave-flash" data="',
                     flashUrl, '" class="text-clipboard">',
                     '<param name="wmode" value="transparent" />',
                     '<param name="movie" value="', flashUrl, '" />',
@@ -64,6 +63,7 @@ define(function (require, exports, module) {
                     '<param name="flashvars" value=\'' + me.getFlashVars() + '\' />',
                 '</object>'
             ].join('');
+
         },
 
         /**
@@ -147,7 +147,6 @@ define(function (require, exports, module) {
             me.swf =
             me.element =
             window[movieName] =
-            document[movieName] =
             TextClipboard.instances[movieName] = null;
         }
     };
@@ -165,7 +164,7 @@ define(function (require, exports, module) {
 
     // 静态成员
     TextClipboard.instances = { };
-    TextClipboard.version = '0.0.1';
+    TextClipboard.version = '0.0.3';
 
     /**
      * 计数器，用于生成 ID
