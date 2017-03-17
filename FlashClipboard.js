@@ -1,5 +1,5 @@
 /**
- * @file flash 实现的文本复制
+ * @file html 复制
  * @author musicode
  */
 define(function (require, exports, module) {
@@ -9,19 +9,19 @@ define(function (require, exports, module) {
     /**
      * @constructor
      * @param {Object} options
-     * @property {jQuery} options.element 生成 flash 的占位符元素
-     * @property {string=} options.text 初始化时需复制的文本
-     * @property {Function=} options.onReady swf 加载完成时的回调
-     * @property {Function=} options.onClick 点击 swf 时的回调
+     * @property {jQuery} options.element 生成 swf 的占位符元素
+     * @property {?string} options.text 初始化时需复制的文本
+     * @property {?Function} options.onReady swf 加载完成时的回调
+     * @property {?Function} options.onClick 点击 swf 时的回调
      */
-    function TextClipboard(options) {
-        $.extend(this, TextClipboard.defaultOptions, options);
+    function FlashClipboard(options) {
+        $.extend(this, FlashClipboard.defaultOptions, options);
         this.init();
-    };
+    }
 
-    TextClipboard.prototype = {
+    FlashClipboard.prototype = {
 
-        constructor: TextClipboard,
+        constructor: FlashClipboard,
 
         /**
          * 初始化
@@ -31,11 +31,10 @@ define(function (require, exports, module) {
             var me = this;
 
             var movieName =
-            me.movieName = '_TextClipboard_' + movieCount++;
+            me.movieName = '_FlashClipboard_' + movieCount++;
 
             window[movieName] =
-            document[movieName] =
-            TextClipboard.instances[movieName] = me;
+            FlashClipboard.instances[movieName] = me;
 
             var swf = $(me.getFlashHTML());
             me.element.replaceWith(swf);
@@ -54,7 +53,7 @@ define(function (require, exports, module) {
             var flashUrl = me.flashUrl;
 
             return [
-                '<object id="', me.movieName, '" type="application/x-shockwave-flash" data="',
+                '<object id="', me.movieName, '" width="100%" height="100%" type="application/x-shockwave-flash" data="',
                     flashUrl, '" class="text-clipboard">',
                     '<param name="wmode" value="transparent" />',
                     '<param name="movie" value="', flashUrl, '" />',
@@ -64,6 +63,7 @@ define(function (require, exports, module) {
                     '<param name="flashvars" value=\'' + me.getFlashVars() + '\' />',
                 '</object>'
             ].join('');
+
         },
 
         /**
@@ -109,28 +109,6 @@ define(function (require, exports, module) {
         },
 
         /**
-         * 粘贴
-         *
-         * @return {string}
-         */
-        paste: function () {
-            var swf = this.swf;
-            if (swf.paste) {
-                return swf.paste();
-            }
-        },
-
-        /**
-         * 清空
-         */
-        clear: function () {
-            var swf = this.swf;
-            if (swf.clear) {
-                swf.clear();
-            }
-        },
-
-        /**
          * 销毁对象
          */
         dispose: function () {
@@ -147,11 +125,10 @@ define(function (require, exports, module) {
             me.swf =
             me.element =
             window[movieName] =
-            document[movieName] =
-            TextClipboard.instances[movieName] = null;
+            FlashClipboard.instances[movieName] = null;
         }
-    };
 
+    };
 
     /**
      * 默认配置
@@ -159,13 +136,17 @@ define(function (require, exports, module) {
      * @static
      * @type {Object}
      */
-    TextClipboard.defaultOptions = {
-        flashUrl: require.toUrl('./TextClipboard.swf')
+    FlashClipboard.defaultOptions = {
+        flashUrl: require.toUrl('./FlashClipboard.swf')
     };
 
-    // 静态成员
-    TextClipboard.instances = { };
-    TextClipboard.version = '0.0.1';
+    /**
+     * 所有实例
+     *
+     * @static
+     * @type {Object}
+     */
+    FlashClipboard.instances = { };
 
     /**
      * 计数器，用于生成 ID
@@ -176,9 +157,9 @@ define(function (require, exports, module) {
     var movieCount = 0;
 
     // flash 需要全局引用
-    window.TextClipboard = TextClipboard;
+    window.TextClipboard = FlashClipboard;
 
 
-    return TextClipboard;
+    return FlashClipboard;
 
 });
