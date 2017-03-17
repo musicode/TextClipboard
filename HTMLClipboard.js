@@ -34,21 +34,26 @@ define(function (require, exports, module) {
 
         copy: function (text) {
 
-            var textarea = document.createElement('textarea');
-            textarea.value = text;
-            textarea.style.position = 'absolute';
-            textarea.style.left = '9999px';
-            document.body.appendChild(textarea);
+            var textarea = $('<textarea></textarea>');
+            textarea.prop('value', text);
+            textarea.css({
+                position: 'absolute',
+                left: 0,
+                top: 0,
+                width: 1,
+                height: 1
+            });
+            textarea.appendTo('body');
 
-            textarea.select();
-            textarea.setSelectionRange(0, text.length);
+            textarea[0].select();
+            textarea[0].setSelectionRange(0, text.length);
 
             var result = false;
             try {
                 result = document.execCommand('copy');
                 setTimeout(
                     function () {
-                        document.body.removeChild(textarea);
+                        textarea.remove();
                     }
                 );
             }
